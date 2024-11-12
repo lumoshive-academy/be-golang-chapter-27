@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"be-golang-chapter-27-implem/model"
+	"be-golang-chapter-27/implementation-zap-log/model"
 	"database/sql"
 	"fmt"
 
