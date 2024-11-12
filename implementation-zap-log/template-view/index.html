@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Storage Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .output {
+            margin-top: 20px;
+        }
+
+        .output p {
+            margin: 5px 0;
+            font-size: 1.1em;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Local Storage Demo</h1>
+    <input type="text" id="nama" placeholder="Masukkan Nama" />
+    <input type="number" id="umur" placeholder="Masukkan Umur" />
+    <button onclick="simpanData()">Simpan Data</button>
+
+    <div class="output" id="output">
+        <!-- Output data from Local Storage will be shown here -->
+    </div>
+</div>
+
+<script>
+    // Fungsi untuk menyimpan data ke Local Storage
+    function simpanData() {
+        const nama = document.getElementById("nama").value;
+        const umur = document.getElementById("umur").value;
+
+        // Validasi sederhana
+        if (nama === "" || umur === "") {
+            alert("Nama dan umur harus diisi!");
+            return;
+        }
+
+        // Menyimpan data sebagai objek di Local Storage
+        const user = {
+            nama: nama,
+            umur: umur
+        };
+        localStorage.setItem("user", JSON.stringify(user));
+
+        // Menampilkan data yang disimpan
+        tampilkanData();
+    }
+
+    // Fungsi untuk menampilkan data dari Local Storage
+    function tampilkanData() {
+        const outputDiv = document.getElementById("output");
+        outputDiv.innerHTML = "";
+
+        const userData = localStorage.getItem("user");
+        
+        if (userData) {
+            const user = JSON.parse(userData);
+            outputDiv.innerHTML = `
+                <p>Nama: ${user.nama}</p>
+                <p>Umur: ${user.umur}</p>
+            `;
+        } else {
+            outputDiv.innerHTML = "<p>Belum ada data yang disimpan.</p>";
+        }
+    }
+
+    // Menampilkan data saat halaman dimuat
+    window.onload = tampilkanData;
+</script>
+
+</body>
+</html>
